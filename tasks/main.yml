@@ -46,7 +46,7 @@
   include: datacenter.yml
   tags:
     - configuration
-  when: jira_role
+  when: jira_datacenter_role
 
 - name: JIRA | SSO OKTA configuration
   include: okta.yml

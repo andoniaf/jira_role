@@ -50,7 +50,7 @@ jira_role: false
 #  ehcache_object_port: 50001
 #  ehcache_listener_socketTimeoutMillis: 3000
 
-jira_okta: false
+jira_datacenter_role: false
 # Sample JIRA OKTA configuration:
 #  jira_okta_logout_url: https://company.okta.com
 #  jira_okta_config_file: /path/to/your/okta-config-jira.xml
