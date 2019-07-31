@@ -1,0 +1,39 @@
+---
+# tasks file for jira_datacenter
+
+- name: JIRA | OpenJDK | Setting OpenJDK home
+  set_fact:
+    java_home: "{{ java_openjdk_home }}"
+
+- name: JIRA | OpenJDK | Add required repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items: "{{ java_required_repositories_openjdk }}"
+
+- name: JIRA | OpenJDK | Install Java
+  apt:
+    name: "{{ java_openjdk_package }}={{ java_openjdk_version }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  until: java_package_installed is succeeded
+  register: java_package_installed
+
+- name: JIRA | OpenJDK | Update Env
+  alternatives:
+    name: java
+    path: "{{ java_openjdk_home }}/bin/java"
+
+- name: JIRA | OpenJDK | Ensure Defaults on etc/alternatives systems
+  file:
+    src: "{{ java_openjdk_home }}"
+    dest: "{{ java_openjdk_default_java_home }}"
+    force: true
+    state: link
+
+- name: JIRA | OpenJDK | Export environment variables
+  template:
+    src: jdk_home.sh.j2
+    dest: /etc/profile.d/jdk_home.sh

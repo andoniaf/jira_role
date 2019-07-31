@@ -1,0 +1,11 @@
+---
+# tasks file for jira_datacenter
+
+- name: JIRA | DataCenter | Master | Create cluster properties
+  template:
+    src: cluster.properties.j2
+    dest: "{{ jira_home }}"
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group }}"
+    mode: 0644
+  notify: restart jira

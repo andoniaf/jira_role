@@ -1,0 +1,55 @@
+---
+# tasks file for jira_datacenter
+
+- name: JIRA | Include OS family/distribution specific defaults
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ role_path }}/defaults/{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ role_path }}/defaults/{{ ansible_os_family | lower }}.yml"
+        - "main.yml"
+      ignore_errors: true
+
+- name: JIRA | Include OS family/distribution specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ role_path }}/vars/{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ role_path }}/vars/{{ ansible_os_family }}.yml"
+        - "{{ role_path }}/vars/main.yml"
+      ignore_errors: true
+
+- name: JIRA | Include OS family/distribution specific tasks
+  include: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ role_path }}/tasks/{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ role_path }}/tasks/{{ ansible_os_family | lower }}.yml"
+      ignore_errors: true
+
+- name: JIRA | OpenJDK | Install OpenJDK
+  include: "openjdk.yml"
+  tags:
+    - requisites
+
+- name: JIRA | Insallation
+  include: install.yml
+  tags:
+    - installation
+
+- name: JIRA | Configuration
+  include: config.yml
+  tags:
+    - configuration
+
+- name: JIRA | DataCenter related configuration
+  include: datacenter.yml
+  tags:
+    - configuration
+  when: jira_datacenter
+
+- name: JIRA | SSO OKTA configuration
+  include: okta.yml
+  tags:
+    - configuration
+  when: jira_okta

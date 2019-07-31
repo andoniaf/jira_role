@@ -1,0 +1,16 @@
+<configuration>
+    <!-- {{ ansible_managed }} -->
+    <applications>
+        <application>
+            <md:EntityDescriptor entityID="http://www.okta.com/{{ jira_okta_entity_id }}" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"><md:IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"><md:KeyDescriptor use="signing"><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>{{ jira_okta_certificate_base64 }}</ds:X509Certificate></ds:X509Data></ds:KeyInfo></md:KeyDescriptor><md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:email</md:NameIDFormat><md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="{{ jira_okta_location_url }}"/><md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="{{ jira_okta_location_url }}"/></md:IDPSSODescriptor></md:EntityDescriptor>
+        </application>
+    </applications>
+
+    <oktaProtectedUrls>
+        <url>/browse/</url>
+        <url>/secure/</url>
+        <url>/okta_login.jsp</url>
+    </oktaProtectedUrls>
+
+    <loginUri>{{ jira_okta_app_url }}</loginUri>
+</configuration>

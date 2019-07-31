@@ -1,0 +1,87 @@
+<%-- {{ ansible_managed }} --%>
+<%@ page import="com.atlassian.jira.config.properties.ApplicationProperties" %>
+<%@ page import="com.atlassian.jira.config.properties.APKeys" %>
+<%@ page import="com.atlassian.jira.component.ComponentAccessor" %>
+<%@ page import="com.atlassian.jira.authenticator.okta.OktaUrlUtils" %>
+<%@ page import="com.opensymphony.util.TextUtils" %>
+<%@ page import="com.atlassian.jira.authenticator.okta.OktaUrlUtils.Redirect" %>
+<%@ page import="com.atlassian.jira.authenticator.okta.OktaUrlUtils.RedirectType" %>
+<%@ taglib prefix="ww" uri="webwork" %>
+<%@ taglib prefix="aui" uri="webwork" %>
+<%@ taglib prefix="page" uri="sitemesh-page" %>
+<%@ taglib prefix="jira" uri="webwork" %>
+
+<%
+    Redirect redirect = OktaUrlUtils.handleRequest(request);
+    request.setAttribute("showLoginPage", RedirectType.NONE.equals(redirect.getRedirectType()));
+    request.setAttribute("oktaLogin", RedirectType.OKTA.equals(redirect.getRedirectType()));
+    request.setAttribute("showError", RedirectType.ERROR.equals(redirect.getRedirectType()));
+    request.setAttribute("redirect", redirect);
+
+    if (RedirectType.NATIVE.equals(redirect.getRedirectType())) {
+        response.sendRedirect(redirect.getRedirectUrl());
+    }
+%>
+
+<html>
+<head>
+    <title><ww:text name="'common.words.login.caps'"/></title>
+    <meta name="decorator" content="login" />
+</head>
+<body>
+
+<%-- Handling errors --%>
+<ww:if test="@showError == true">
+    <aui:component template="auimessage.jsp" theme="'aui'">
+    <aui:param name="'messageType'">error</aui:param>
+    <aui:param name="'messageHtml'">
+        <p>
+            Error: <%= redirect.getRedirectUrl() %>
+        </p>
+    </aui:param>
+</aui:component>
+</ww:if>
+
+<%-- Showing SP login page to let user input the username --%>
+<ww:if test="@showLoginPage == true || @showError == true">
+    <page:capHide value="IFRAME">
+        <ui:soy moduleKey="'jira.webresources:soy-templates'" template="'JIRA.Templates.Headers.pageHeader'">
+            <ui:param name="'mainContent'">
+                <h1><ww:text name="'login.welcome.to'"/> <%= TextUtils.htmlEncode(ComponentAccessor.getComponent(ApplicationProperties.class).getDefaultBackedString(APKeys.JIRA_TITLE))%> </h1>
+            </ui:param>
+        </ui:soy>
+    </page:capHide>
+
+    <page:applyDecorator id="login-form" name="auiform">
+        <page:param name="action"><%= request.getContextPath() %>/okta_login.jsp</page:param>
+        <page:param name="method">get</page:param>
+        <page:param name="submitButtonName">login</page:param>
+        <page:param name="submitButtonText"><ww:text name="'common.concepts.login'"/></page:param>
+
+
+        <div class="aui-group jira-login-method">
+            <div class="aui-item jira-login-item">
+                <page:applyDecorator name="auifieldgroup">
+                    <label accesskey="<ww:text name="'alt.text.username.accessKey'"/>" for="login-form-username"><ww:text name="'alt.text.username'"/></label>
+                    <input class="text medium-field" id="login-form-username" name="os_username" type="text" value="<ww:property value="$os_username" />" />
+                </page:applyDecorator>
+            </div>
+        </div>
+        <ww:component name="'RelayState'" template="hidden.jsp" theme="'aui'" value="$RelayState" />
+    </page:applyDecorator>
+</ww:if>
+
+
+<%-- If this is Okta login, post SAML request straight to Okta --%>
+<ww:if test="@oktaLogin == true">
+    <form onload="document.spFlowForm.submit()" name="spFlowForm" action="<%= redirect.getRedirectUrl() %>" method="POST">
+        <input name="SAMLRequest" value="<%= OktaUrlUtils.getAuthenticator().getSAMLRequest() %>" hidden />
+        <input name="AuthenticatorVersion" value="<%= OktaUrlUtils.getAuthenticatorVersion() %>" hidden/>
+        <h2>Redirecting to Okta, please wait...</h2>
+    </form>
+    <script>
+        document.spFlowForm.submit();
+    </script>
+</ww:if>
+</body>
+</html>

@@ -1,0 +1,7 @@
+---
+# handlers file for jira_datacenter
+
+- name: restart jira
+  systemd:
+    name: "{{ jira_service_name }}"
+    state: restarted

@@ -1,0 +1,71 @@
+---
+# defaults file for jira_datacenter
+
+java_openjdk_package: openjdk-{{ java_openjdk_version_major }}-jdk-headless
+java_openjdk_home_dir: java-{{ java_openjdk_version_major }}-openjdk-amd64
+java_openjdk_home: /usr/lib/jvm/{{ java_openjdk_home_dir }}
+java_openjdk_default_java_home: /usr/lib/jvm/default-java
+
+jira_user: jira
+jira_group: jira
+jira_home: /var/atlassian/application-data/jira
+jira_installation_dir: /opt/atlassian/jira
+jira_download_dir: /opt/atlassian/jira_download
+jira_versions_dir: /opt/atlassian/jira_versions
+jira_version: 8.3.0
+jira_package: atlassian-jira-software-{{ jira_version }}.tar.gz
+jira_installation_url: https://www.atlassian.com/software/jira/downloads/binary/{{ jira_package }}
+
+jira_service: /lib/systemd/system/jira.service
+jira_service_name: jira
+jira_service_state: started
+jira_service_enabled: true
+
+
+jira_jvm_support_recommended_args: "-Datlassian.plugins.enable.wait=300"
+jira_jvm_minimum_memory: "384m"
+jira_jvm_maximum_memory: "2048m"
+jira_jvm_code_cache_args: "-XX:InitialCodeCacheSize=32m -XX:ReservedCodeCacheSize=512m"
+jira_jvm_required_args: "-Djava.awt.headless=true -Datlassian.standalone=JIRA -Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true -Dmail.mime.decodeparameters=true -Dorg.dom4j.factory=com.atlassian.core.xml.InterningDocumentFactory"
+
+jira_disable_notifications: false
+jira_database_configuration: false
+
+# Sample MySQL JDBC configuration:
+#  jira_database_type: 'postgres72'
+#  jira_database_driver_class: 'org.postgresql.Driver'
+#  jira_database_username: 'jiradbuser'
+#  jira_database_password: 'XXXXXX'
+#  jira_database_host: 'localhost'
+#  jira_database_url: "jdbc:postgresql://jira.ID.ZONE.rds.amazonaws.com:5432/jiradb"
+#  jira_database_port: 3306
+
+jira_datacenter: false
+# Sample for JIRA DateCenter node:
+#  jira_cluster_node_id: 'master'
+#  jira_cluster_shared_home: '/data/shared/jira'
+#  ehcache_peer_discovery: 'automatic'
+#  ehcache_listener_hostName: 'master'
+#  ehcache_listener_port: '40001'
+#  ehcache_object_port: 50001
+#  ehcache_listener_socketTimeoutMillis: 3000
+
+jira_okta: false
+# Sample JIRA OKTA configuration:
+#  jira_okta_logout_url: https://company.okta.com
+#  jira_okta_config_file: /path/to/your/okta-config-jira.xml
+#  jira_okta_package_jar: okta-jira-3.0.7.jar
+#  jira_okta_jar_url: https://company.okta.com/static/toolkits/{{ jira_okta_jar_url }}
+#  jira_okta_entity_id: 0x123123123123123
+#  jira_okta_app_url: https://company.okta.com/app/jira/{{ jira_okta_entity_id }}/sso/saml
+#  jira_okta_location_url: https://company.okta.com/app/jira/{{ jira_okta_entity_id }}/sso/saml
+
+direct_connectors:
+  - name: direct
+    port: 8080
+
+http_proxies: []
+
+https_proxies: []
+
+ajp_proxies: []

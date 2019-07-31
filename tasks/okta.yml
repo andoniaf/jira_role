@@ -1,0 +1,49 @@
+---
+# tasks file for jira_datacenter
+
+- name: JIRA | OKTA | Creating okta-config-jira.xml file
+  template:
+    src: okta-config-jira.xml.j2
+    dest: "{{ jira_home }}/okta-config-jira.xml"
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group }}"
+    mode: 0644
+    backup: true
+  notify: restart jira
+
+- name: JIRA | OKTA | Creating seraph-config.xml file
+  template:
+    src: atlassian-jira/WEB-INF/classes/seraph-config.xml.j2
+    dest: "{{ jira_installation_dir }}/atlassian-jira/WEB-INF/classes/seraph-config.xml"
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group }}"
+    mode: 0644
+    backup: true
+  notify: restart jira
+
+- name: JIRA | OKTA | Creating okta_login.jsp file
+  template:
+    src: atlassian-jira/okta_login.jsp.j2
+    dest: "{{ jira_installation_dir }}/atlassian-jira/okta_login.jsp"
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group }}"
+    mode: 0644
+    backup: true
+  notify: restart jira
+
+- name: JIRA | OKTA | Creating web.xml file
+  template:
+    src: atlassian-jira/WEB-INF/web.xml.j2
+    dest: "{{ jira_installation_dir }}/atlassian-jira/WEB-INF/web.xml"
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group }}"
+    mode: 0644
+    backup: true
+  notify: restart jira
+
+- name: JIRA | OKTA | Download OKTA jar file
+  get_url:
+    url: "{{ jira_okta_jar_url }}"
+    dest: "{{ jira_installation_dir }}/atlassian-jira/WEB-INF/lib/{{ jira_okta_package_jar }}"
+    owner: "{{ jira_user }}"
+    group: "{{ jira_group }}"

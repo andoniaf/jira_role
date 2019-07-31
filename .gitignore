@@ -1,0 +1,26 @@
+# Retry files after playbook failures
+*.retry
+
+# Tests folders
+*.molecule
+*.cache
+*.vagrant
+
+# Pipenv
+Pipfile*
+
+# Testinfra
+*.py~
+*.pyc
+*.egg-info
+*.egg
+.eggs
+*.swp
+.local
+.coverage*
+.tox
+.python-version
+*.log
+coverage.xml
+junit*.xml
+.cache
