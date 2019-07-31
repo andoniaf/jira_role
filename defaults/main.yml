@@ -40,7 +40,7 @@ jira_database_configuration: false
 #  jira_database_url: "jdbc:postgresql://jira.ID.ZONE.rds.amazonaws.com:5432/jiradb"
 #  jira_database_port: 3306
 
-jira_role: false
+jira_datacenter_role: false
 # Sample for JIRA DateCenter node:
 #  jira_cluster_node_id: 'master'
 #  jira_cluster_shared_home: '/data/shared/jira'
@@ -50,7 +50,7 @@ jira_role: false
 #  ehcache_object_port: 50001
 #  ehcache_listener_socketTimeoutMillis: 3000
 
-jira_datacenter_role: false
+jira_okta: false
 # Sample JIRA OKTA configuration:
 #  jira_okta_logout_url: https://company.okta.com
 #  jira_okta_config_file: /path/to/your/okta-config-jira.xml
