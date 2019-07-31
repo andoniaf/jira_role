@@ -11,12 +11,11 @@ jobs:
     working_directory: ~/jira_role
     steps:
       - checkout
-
+      - setup_remote_docker
       - run:
           name: install dependencies
           command: |
             sudo pip install -r test-requirements.txt
-
       # run tests!
       - run:
           name: run tests
