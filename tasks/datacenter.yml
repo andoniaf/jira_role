@@ -1,5 +1,5 @@
 ---
-# tasks file for jira_datacenter
+# tasks file for jira_role
 
 - name: JIRA | DataCenter | Master | Create cluster properties
   template:

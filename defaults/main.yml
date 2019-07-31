@@ -1,5 +1,5 @@
 ---
-# defaults file for jira_datacenter
+# defaults file for jira_role
 
 java_openjdk_package: openjdk-{{ java_openjdk_version_major }}-jdk-headless
 java_openjdk_home_dir: java-{{ java_openjdk_version_major }}-openjdk-amd64
@@ -40,7 +40,7 @@ jira_database_configuration: false
 #  jira_database_url: "jdbc:postgresql://jira.ID.ZONE.rds.amazonaws.com:5432/jiradb"
 #  jira_database_port: 3306
 
-jira_datacenter: false
+jira_role: false
 # Sample for JIRA DateCenter node:
 #  jira_cluster_node_id: 'master'
 #  jira_cluster_shared_home: '/data/shared/jira'

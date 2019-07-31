@@ -1,5 +1,5 @@
 ---
-# handlers file for jira_datacenter
+# handlers file for jira_role
 
 - name: restart jira
   systemd:

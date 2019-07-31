@@ -1,5 +1,5 @@
 ---
-# tasks file for jira_datacenter
+# tasks file for jira_role
 
 - name: JIRA | Config | Server configuration
   template:

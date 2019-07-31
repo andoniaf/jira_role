@@ -1,5 +1,5 @@
 ---
-# tasks file for jira_datacenter
+# tasks file for jira_role
 
 - name: JIRA | Include OS family/distribution specific defaults
   include_vars: "{{ item }}"
@@ -46,7 +46,7 @@
   include: datacenter.yml
   tags:
     - configuration
-  when: jira_datacenter
+  when: jira_role
 
 - name: JIRA | SSO OKTA configuration
   include: okta.yml
