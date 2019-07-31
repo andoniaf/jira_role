@@ -1,7 +1,7 @@
 ---
 # tasks file for jira_role
 
-- name: JIRA | DataCenter | Master | Create cluster properties
+- name: JIRA | DataCenter | Create cluster properties
   template:
     src: cluster.properties.j2
     dest: "{{ jira_home }}"
@@ -9,3 +9,28 @@
     group: "{{ jira_group }}"
     mode: 0644
   notify: restart jira
+
+- name: JIRA | DataCenter | Install NFS common
+  apt: 
+    name: nfs-common
+    state: present
+    autoclean: yes
+    autoremove: yes
+    install_recommends: yes
+
+- name: JIRA | DataCenter | Create folder for shared home
+  file:
+    path: "{{ jira_datacenter_shared }}"
+    state: directory
+    owner: jira
+    group: jira
+    mode: 0755
+
+- name: JIRA | DataCenter | Mount shared folder
+  mount:
+    backup: yes
+    path: "{{ jira_datacenter_shared }}"
+    src:  "{{ jira_datacenter_mountpoint }}"
+    state: mounted
+    opts: "{{ jira_datacenter_mountopts }}"
+    fstype: nfs

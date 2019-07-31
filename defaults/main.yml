@@ -42,8 +42,11 @@ jira_database_configuration: false
 
 jira_datacenter_role: false
 # Sample for JIRA DateCenter node:
-#  jira_cluster_node_id: 'master'
-#  jira_cluster_shared_home: '/data/shared/jira'
+#  jira_datacenter_node_id: 'master'
+#  jira_datacenter_shared: '/data/shared'
+#  jira_datacenter_shared_home: "(( jira_datacenter_shared }}/jira"
+#  jira_datacenter_mountpoint: ""
+#  jira_datacenter_mountopts: "nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport"
 #  ehcache_peer_discovery: 'automatic'
 #  ehcache_listener_hostName: 'master'
 #  ehcache_listener_port: '40001'

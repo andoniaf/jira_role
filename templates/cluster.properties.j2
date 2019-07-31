@@ -1,7 +1,7 @@
 # This ID must be unique across the cluster
-jira.node.id = jira_node_{{ jira_cluster_node_id }}
+jira.node.id = jira_node_{{ jira_datacenter_node_id }}
 # The location of the shared home directory for all JIRA nodes
-jira.shared.home = {{ jira_cluster_shared_home }}
+jira.shared.home = {{ jira_datacenter_shared_home }}
 
 {% if 'ehcache.peer.discovery' %}
 # Describes how nodes find each other (Default, automatic)

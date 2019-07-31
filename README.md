@@ -32,6 +32,12 @@ All built with CircleCI: [![CircleCI](https://circleci.com/gh/peertransfer/jira_
 
 Ansible 2.8.3.0 version installed, or a Docker environment to develop.
 
+For DataCenter we'll need a mountpoint with shared home. This playbook doesn't create that folder because some JIRA limitations, you'll need to start a installation to create home folder, and copy it over shared folder:
+
+```sh
+$ cp -R /path/to/jira-local-home/{data,plugins,logos,import,export,caches} /data/jira/sharedhome
+```
+
 ### Installing
 
 Add role dependecy to your requirements file ([Installing roles from file](https://docs.ansible.com/ansible/latest/reference_appendices/galaxy.html#installing-multiple-roles-from-a-file)).
