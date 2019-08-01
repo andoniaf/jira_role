@@ -24,3 +24,6 @@ Pipfile*
 coverage.xml
 junit*.xml
 .cache
+
+# vscode
+.vscode
