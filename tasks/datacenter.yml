@@ -11,12 +11,12 @@
   notify: restart jira
 
 - name: JIRA | DataCenter | Install NFS common
-  apt: 
+  apt:
     name: nfs-common
     state: present
-    autoclean: yes
-    autoremove: yes
-    install_recommends: yes
+    autoclean: true
+    autoremove: true
+    install_recommends: true
 
 - name: JIRA | DataCenter | Create folder for shared home
   file:
@@ -28,9 +28,9 @@
 
 - name: JIRA | DataCenter | Mount shared folder
   mount:
-    backup: yes
+    backup: true
     path: "{{ jira_datacenter_shared }}"
-    src:  "{{ jira_datacenter_mountpoint }}"
+    src: "{{ jira_datacenter_mountpoint }}"
     state: mounted
     opts: "{{ jira_datacenter_mountopts }}"
     fstype: nfs
