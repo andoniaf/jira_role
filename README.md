@@ -7,7 +7,7 @@ There is optiontal setups for:
 - Okta SSO integration
 - Datacenter
 
-All built with CircleCI: [![CircleCI](https://circleci.com/gh/peertransfer/jira_role/tree/master.svg?style=svg)](https://circleci.com/gh/peertransfer/jira_role/tree/master)
+All built with CircleCI: [![CircleCI](https://circleci.com/gh/peertransfer/jira_role.svg?style=svg)](https://circleci.com/gh/peertransfer/jira_role)
 
 ![Flywire Engineering](flywire_engineering.png)
 
