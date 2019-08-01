@@ -1,6 +1,6 @@
 # JIRA Ansible role
 
-This Ansible role installs Atlassian JIRA in a Debian Stretch environment. The app will expose the endpoint `yourip:8080`.
+This role installs Atlassian JIRA software in a Debian Stretch environment. The role will expose the endpoint at `yourip:8080`.
 
 There is optiontal setups for:
 - Database
@@ -106,6 +106,8 @@ Also you can play each stage of __Molecule__ separated from this matrix, *test* 
 
 ### Contributing
 
+You can check in [CONTRIBUTING](.github/CONTRIBUTING)
+
 ### Versioning
 
 We use the semver system to version all of our ansible roles, https://semver.org/
@@ -120,4 +122,4 @@ The current version is kept in plain text in a .semver file Ej: v1.2.5
 
 ![Apache 2.0 License](https://img.shields.io/hexpm/l/plug.svg)
 
-This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license - see the [LICENSE](.github/LICENSE) file for details.
