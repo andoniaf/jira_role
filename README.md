@@ -106,7 +106,7 @@ Also you can play each stage of __Molecule__ separated from this matrix, *test* 
 
 ### Contributing
 
-You can check in [CONTRIBUTING](.github/CONTRIBUTING)
+You can check in [CONTRIBUTING](.github/CONTRIBUTING.md)
 
 ### Versioning
 
